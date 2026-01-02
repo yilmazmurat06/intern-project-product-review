@@ -7,7 +7,7 @@ import { Platform } from 'react-native';
 // 'localhost' works for iOS Simulator.
 const BASE_URL = Platform.OS === 'android' 
   ? 'http://192.168.1.89:8080/api' 
-  : 'http://localhost:8080/api';
+  : 'http://10.0.2.2:8080/api';
 
 const api = axios.create({
   baseURL: BASE_URL,
