@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, FlatList, ActivityIndicator, StyleSheet, Text } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { getProducts } from '../services/api';
 import ProductCard from '../components/ProductCard';
 
@@ -8,20 +9,29 @@ const ProductListScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetchProducts();
+    }, [])
+  );
 
   const fetchProducts = async () => {
     try {
+      console.log('Fetching products...');
       const response = await getProducts();
-      // Spring Boot Page object returns content in 'content' field
-      setProducts(response.data.content);
+      console.log('Products response:', JSON.stringify(response, null, 2));
+      
+      if (response && response.data && response.data.content) {
+        setProducts(response.data.content);
+      } else {
+        console.warn('Unexpected response structure:', response);
+        setProducts([]);
+      }
       setLoading(false);
     } catch (err) {
       setError('Failed to load products');
       setLoading(false);
-      console.error(err);
+      console.error('Fetch error:', err);
     }
   };
 

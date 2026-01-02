@@ -14,6 +14,7 @@ const ProductCard = ({ product, onPress }) => {
         <Text style={styles.rating}>⭐ {product.averageRating ? product.averageRating.toFixed(1) : 'N/A'}</Text>
         <Text style={styles.reviews}>({product.reviewCount} reviews)</Text>
       </View>
+      <Text style={[styles.category, { textAlign: 'right', marginTop: 8 }]}>Click to see details</Text>
     </TouchableOpacity>
   );
 };

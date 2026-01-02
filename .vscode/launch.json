@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Backend - ProductReviewApplication",
+            "request": "launch",
+            "mainClass": "com.example.productreview.ProductReviewApplication",
+            "projectName": "product-review"
+        }
+    ]
+}
