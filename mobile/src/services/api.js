@@ -1,16 +1,21 @@
 import { Platform } from 'react-native';
 
-// NOTE: If you are using Expo Go on a physical device, you must replace 'localhost' 
-// with your computer's LAN IP address (e.g., 'http://192.168.1.100:8080/api').
-// '10.0.2.2' works for Android Emulator.
-// 'localhost' works for iOS Simulator.
-// Using LAN IP 192.168.1.89 found from ipconfig
-const BASE_URL = 'http://192.168.1.89:8080/api';
+// Tünel URL'i (Firewall engelini aşmak için)
+// Bu URL geçicidir. Eğer çalışmazsa, terminalde "npx localtunnel --port 8080"
+// komutunu çalıştırıp yeni verilen URL'i buraya yapıştırmalısınız.
+const TUNNEL_URL = 'https://real-emus-swim.loca.lt';
+
+const getBaseUrl = () => {
+  return `${TUNNEL_URL}/api`;
+};
+
+const BASE_URL = getBaseUrl();
 
 console.log('API Base URL:', BASE_URL);
 
 const headers = {
   'Content-Type': 'application/json',
+  'Bypass-Tunnel-Reminder': 'true', // Localtunnel uyarı sayfasını geçmek için
 };
 
 const handleResponse = async (response) => {

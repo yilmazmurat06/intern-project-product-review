@@ -1,13 +1,17 @@
 import React, { useState, useCallback } from 'react';
-import { View, FlatList, ActivityIndicator, StyleSheet, Text } from 'react-native';
+import { View, FlatList, ActivityIndicator, StyleSheet, Text, useWindowDimensions } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { getProducts } from '../services/api';
+import { verticalScale, moderateScale } from '../utils/responsive';
 import ProductCard from '../components/ProductCard';
 
 const ProductListScreen = ({ navigation }) => {
+  const { width } = useWindowDimensions();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const numColumns = width > 600 ? 2 : 1;
 
   useFocusEffect(
     useCallback(() => {
@@ -29,7 +33,7 @@ const ProductListScreen = ({ navigation }) => {
       }
       setLoading(false);
     } catch (err) {
-      setError('Failed to load products');
+      setError(`Failed to load products: ${err.message}`);
       setLoading(false);
       console.error('Fetch error:', err);
     }
@@ -54,13 +58,17 @@ const ProductListScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
+        key={numColumns} // Sütun sayısı değişince yeniden render et
+        numColumns={numColumns}
         data={products}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <ProductCard 
-            product={item} 
-            onPress={() => navigation.navigate('ProductDetail', { productId: item.id })}
-          />
+          <View style={{ flex: 1, maxWidth: numColumns > 1 ? '50%' : '100%' }}>
+            <ProductCard 
+              product={item} 
+              onPress={() => navigation.navigate('ProductDetail', { productId: item.id })}
+            />
+          </View>
         )}
         contentContainerStyle={styles.list}
       />
@@ -79,11 +87,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   list: {
-    paddingVertical: 8,
+    paddingVertical: verticalScale(8),
   },
   error: {
     color: 'red',
-    fontSize: 16,
+    fontSize: moderateScale(16),
   },
 });
 

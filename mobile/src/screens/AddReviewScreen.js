@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { createReview } from '../services/api';
+import { verticalScale, moderateScale, scale } from '../utils/responsive';
 
 const AddReviewScreen = ({ route, navigation }) => {
   const { productId } = route.params;
@@ -72,24 +73,24 @@ const AddReviewScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: moderateScale(20),
     backgroundColor: '#fff',
   },
   label: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: verticalScale(10),
     color: '#333',
   },
   ratingContainer: {
     flexDirection: 'row',
-    marginBottom: 10,
+    marginBottom: verticalScale(10),
   },
   starButton: {
-    padding: 5,
+    padding: moderateScale(5),
   },
   star: {
-    fontSize: 32,
+    fontSize: moderateScale(32),
   },
   starSelected: {
     color: '#f1c40f',
@@ -98,19 +99,19 @@ const styles = StyleSheet.create({
     color: '#bdc3c7',
   },
   ratingValue: {
-    fontSize: 16,
-    marginBottom: 20,
+    fontSize: moderateScale(16),
+    marginBottom: verticalScale(20),
     color: '#7f8c8d',
   },
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 12,
-    fontSize: 16,
-    height: 120,
+    borderRadius: moderateScale(8),
+    padding: moderateScale(12),
+    fontSize: moderateScale(16),
+    height: verticalScale(120),
     textAlignVertical: 'top',
-    marginBottom: 20,
+    marginBottom: verticalScale(20),
   },
 });
 

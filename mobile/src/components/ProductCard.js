@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { scale, verticalScale, moderateScale } from '../utils/responsive';
 
 const ProductCard = ({ product, onPress }) => {
   return (
@@ -22,55 +23,55 @@ const ProductCard = ({ product, onPress }) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    padding: 16,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 8,
+    padding: moderateScale(16),
+    marginVertical: verticalScale(8),
+    marginHorizontal: scale(16),
+    borderRadius: moderateScale(8),
     elevation: 2,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: verticalScale(2) },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: moderateScale(4),
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
   name: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
     flex: 1,
   },
   price: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: '#2ecc71',
     fontWeight: 'bold',
   },
   category: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#7f8c8d',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
     fontStyle: 'italic',
   },
   description: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#34495e',
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
   },
   footer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   rating: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: 'bold',
-    marginRight: 8,
+    marginRight: scale(8),
     color: '#f1c40f',
   },
   reviews: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#95a5a6',
   },
 });
