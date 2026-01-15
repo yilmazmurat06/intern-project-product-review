@@ -1,0 +1,11 @@
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/controller/ProductController.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/entity/Review.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/dto/ProductDTO.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/repository/ReviewRepository.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/service/ProductService.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/dto/ReviewDTO.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/controller/ReviewController.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/entity/Product.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/ProductReviewApplication.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/repository/ProductRepository.java
+/Users/murat/Documents/GitHub/intern-project-product-review/backend/src/main/java/com/example/productreview/service/ReviewService.java

@@ -12,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.productreview.mobileapp",
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       },
@@ -19,6 +20,21 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "72b304c1-e189-4c65-84e5-30c4e3901fd6"
+      }
     }
   }
 }

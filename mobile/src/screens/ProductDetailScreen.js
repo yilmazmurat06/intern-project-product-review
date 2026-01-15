@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Button, FlatList } from 'react-native';
 import { getProductById, getReviewsByProduct } from '../services/api';
 import { useFocusEffect } from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from '../utils/responsive';
 
 const ProductDetailScreen = ({ route, navigation }) => {
   const { productId } = route.params;
@@ -118,78 +119,78 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    padding: 20,
+    padding: moderateScale(20),
     backgroundColor: '#f8f9fa',
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
   name: {
-    fontSize: 24,
+    fontSize: moderateScale(24),
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
   price: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: '#2ecc71',
     fontWeight: 'bold',
   },
   section: {
-    padding: 20,
+    padding: moderateScale(20),
   },
   category: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: '#7f8c8d',
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
     fontStyle: 'italic',
   },
   description: {
-    fontSize: 16,
-    lineHeight: 24,
+    fontSize: moderateScale(16),
+    lineHeight: verticalScale(24),
     color: '#2c3e50',
   },
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 20,
+    padding: moderateScale(20),
     backgroundColor: '#f1f2f6',
-    marginVertical: 10,
+    marginVertical: verticalScale(10),
   },
   statBox: {
     alignItems: 'center',
   },
   statValue: {
-    fontSize: 24,
+    fontSize: moderateScale(24),
     fontWeight: 'bold',
     color: '#3498db',
   },
   statLabel: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#7f8c8d',
   },
   reviewsSection: {
-    padding: 20,
-    paddingBottom: 80, // Space for FAB
+    padding: moderateScale(20),
+    paddingBottom: verticalScale(80), // Space for FAB
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: verticalScale(16),
   },
   reviewCard: {
     backgroundColor: '#f8f9fa',
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 12,
+    padding: moderateScale(16),
+    borderRadius: moderateScale(8),
+    marginBottom: verticalScale(12),
   },
   reviewHeader: {
     flexDirection: 'row',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
   reviewRating: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
   },
   reviewContent: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#34495e',
   },
   noReviews: {
@@ -197,7 +198,7 @@ const styles = StyleSheet.create({
     color: '#95a5a6',
   },
   fabContainer: {
-    padding: 16,
+    padding: moderateScale(16),
     borderTopWidth: 1,
     borderTopColor: '#eee',
     backgroundColor: '#fff',
