@@ -1,6 +1,8 @@
 package com.example.productreview.service;
 
+import com.example.productreview.aop.ValidateAction;
 import com.example.productreview.dto.ProductDTO;
+
 import com.example.productreview.entity.Product;
 import com.example.productreview.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class ProductService {
         return mapToDTO(product);
     }
 
+    @ValidateAction
     public ProductDTO createProduct(ProductDTO productDTO) {
         Product product = new Product();
         product.setName(productDTO.getName());

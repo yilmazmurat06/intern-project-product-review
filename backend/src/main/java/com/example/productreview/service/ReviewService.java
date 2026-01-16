@@ -1,5 +1,6 @@
 package com.example.productreview.service;
 
+import com.example.productreview.aop.ValidateAction;
 import com.example.productreview.dto.ReviewDTO;
 import com.example.productreview.entity.Product;
 import com.example.productreview.entity.Review;
@@ -24,6 +25,7 @@ public class ReviewService {
     }
 
     @Transactional
+    @ValidateAction
     public ReviewDTO createReview(Long productId, ReviewDTO reviewDTO) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));

@@ -1,11 +1,11 @@
-com/example/productreview/repository/ReviewRepository.class
-com/example/productreview/controller/ReviewController.class
-com/example/productreview/ProductReviewApplication.class
 com/example/productreview/entity/Review.class
 com/example/productreview/entity/Product.class
 com/example/productreview/repository/ProductRepository.class
 com/example/productreview/dto/ReviewDTO.class
+com/example/productreview/repository/ReviewRepository.class
+com/example/productreview/controller/ReviewController.class
 com/example/productreview/controller/ProductController.class
+com/example/productreview/service/ReviewService.class
+com/example/productreview/ProductReviewApplication.class
 com/example/productreview/dto/ProductDTO.class
 com/example/productreview/service/ProductService.class
-com/example/productreview/service/ReviewService.class
