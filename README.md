@@ -6,7 +6,23 @@
 
 ---
 
-## 📌 Project Overview
+## � Deliverables
+
+### 🏛️ System Architecture
+An Excalidraw diagram explaining the overall system design and architecture:  
+🔗 [View System Architecture](https://excalidraw.com/#json=41rZEdDaKmRjK7sv7bi8_,fU5mPPEtFJf1l5ROUjWnlw)
+
+### 📲 Build Artifacts
+Download the generated mobile application builds:  
+🔗 [Download APK (Android) / IPA (iOS)](https://drive.google.com/your-drive-link-here)
+
+### 🌐 Web Access
+Test the application directly in your web browser:  
+🔗 [Launch Web Application](https://your-web-app-url-here)
+
+---
+
+## �📌 Project Overview
 
 The **Product Review Application** is a full-stack system that allows users to browse products, submit reviews, rate products, and view aggregated feedback through a modern mobile interface.  
 The project focuses on **core backend logic, REST API design, data modeling, and mobile UI/UX**, intentionally excluding authentication to keep the scope implementation-focused.
