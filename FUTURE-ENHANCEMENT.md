@@ -3,67 +3,231 @@
 ## AI-Powered Product Recommendation System
 
 ### Overview
-An AI model will be integrated to analyze comprehensive product data across categories, including:
-- Technical specifications and features
-- User reviews and sentiment analysis
-- Product ratings
-- Pricing information
+An advanced AI recommendation engine that analyzes comprehensive product data and user behavior to generate personalized product suggestions. The system will move beyond simple star ratings to implement a sophisticated weighted interaction scoring mechanism inspired by social media recommendation algorithms.
 
-### Core Functionality
-When a user provides their specific requirements and budget constraints, the AI model will generate a curated list of products that match their criteria. The system will compare products within the same category to identify the best options based on the user's input.
+---
 
-### Operational Modes
+## Core Technical Architecture
 
-The recommendation system will support two distinct operational modes:
+### 1. Weighted Interaction Scoring System
 
-#### 1. User-Friendly Mode (Neutral Recommendation)
-- **Objective**: Prioritize the user's best interests
-- **Behavior**: The model provides unbiased recommendations based purely on matching the user's needs, budget, and value-for-money considerations
-- **Outcome**: Users receive genuine product suggestions that best satisfy their requirements
+**Current Limitation**: The application relies solely on explicit 1-5 star ratings from `Review.java`.
 
-#### 2. Manufacturer-Friendly Mode (Sponsored Recommendation)
-- **Objective**: Promote specific manufacturer's products
-- **Behavior**: The model acts as a sales representative for the designated manufacturer, prioritizing their products in recommendations
-- **Outcome**: Users receive biased recommendations favoring the manufacturer's products, even when alternative products might better suit their needs or budget
-- **Note**: This mode introduces commercial bias and may not serve the user's optimal interests. This feature can enable more competitive marketplace for the manufacturer. If they buy this feature from the software company, their sales can rise and earn more. If it gets implemented succesfully, it can be a great source of income for both the software company and the manufacturer of the products.
+**Enhancement**: Implement a multi-signal scoring system that captures both explicit and implicit user interactions.
 
-### Tiered Sponsorship System
+#### Tracked Interaction Signals
 
-To balance business revenue with user trust, the platform will offer three distinct sponsorship tiers for manufacturers:
+**Positive Signals (Weighted Sum)**:
+- **Click Score**: User clicks on product card (Weight: 1.0)
+- **Dwell Score**: Time spent viewing product details (Weight: 2.0 per minute)
+- **Gallery Expand Score**: User views product images/videos fullscreen (Weight: 1.5)
+- **Add to Cart**: Product added to cart (Weight: 5.0)
+- **Share Score**: User shares product link (Weight: 3.0)
+- **Review Submission**: User writes detailed review (Weight: 4.0)
+- **Purchase**: Actual product purchase (Weight: 10.0)
 
-#### Tier 1: Visibility Boost (Light Sponsorship)
+**Negative Signals (Penalty Weights)**:
+- **Bounce Rate**: User clicks but leaves immediately (Weight: -2.0)
+- **Not Interested**: Explicit "not interested" signal (Weight: -5.0)
+- **Return/Refund**: Product returned after purchase (Weight: -8.0)
+- **Low Rating**: 1-2 star reviews (Weight: -3.0 to -5.0)
+- **Report/Flag**: User reports misleading info (Weight: -10.0)
+
+#### Scoring Formula
+
+$$WeightedScore = \sum_{i=1}^{n} (Action_i \times Weight_i)$$
+
+This organic score replaces simple "average rating" and provides nuanced understanding of product popularity and user engagement.
+
+---
+
+### 2. User Action Sequence Personalization
+
+**Architecture Change**: Implement `UserActionSequence` service to build personalized recommendation context.
+
+#### Tracked User History
+- Recent product categories viewed
+- Price range preferences
+- Feature priorities (performance vs. battery life vs. camera quality)
+- Brand affinity patterns
+- Time-of-day browsing patterns
+
+#### Hydration Process
+When user requests recommendations:
+1. Fetch last 10-20 user actions from activity log
+2. Extract behavioral patterns (e.g., "User viewed 5 gaming laptops")
+3. Boost relevance scores for similar products
+4. Apply recency decay (recent actions weighted higher)
+
+**Example**: If user's last 3 actions were all "Budget Smartphones under $500," immediately prioritize affordable phones over flagship models.
+
+---
+
+### 3. Video Review Quality Verification
+
+**Feature**: If product reviews include video content, apply quality thresholds.
+
+**Rule**: Only count video reviews toward product score if:
+- Minimum watch time: 50% of video duration or 30 seconds (whichever is lower)
+- Prevents spam/low-quality videos from inflating scores
+
+---
+
+## Operational Modes & Sponsorship System
+
+### Mode 1: User-Friendly (Neutral Recommendation)
+**Objective**: Maximize user satisfaction and match quality
+
+**Algorithm**:
+$$FinalScore = WeightedScore \times UserRelevanceFactor$$
+
+- Pure merit-based ranking using weighted interaction scores
+- No commercial bias applied
+- Optimal for user retention and trust
+
+---
+
+### Mode 2: Manufacturer-Friendly (Sponsored Recommendation)
+
+**Objective**: Generate revenue through tiered sponsorship while maintaining system integrity
+
+#### Tiered Sponsorship Implementation
+
+**Mathematical Framework**:
+$$FinalScore = (OrganicScore \times UserRelevance) + (SponsorshipBoost \times TierWeight)$$
+
+---
+
+#### **Tier 1: Visibility Boost (Smart Sponsorship)**
 - **Pricing**: $500-$2,000/month or 2% per conversion
-- **Benefit**: Products get preferential placement with "Featured" badge only when they match user criteria (70%+ relevance)
-- **Impact**: Minimal bias - sponsored products move up in rankings but don't override merit
-- **Quality Requirements**: Minimum 3.5★ rating, accurate specifications
+- **Algorithm**: 
+  ```
+  if (UserRelevance > 0.7) {
+      FinalScore += 10.0
+  }
+  ```
+- **Behavior**: Only boosts products that already match user needs (70%+ relevance threshold)
+- **Impact**: Products move up 2-4 positions in ranking if they're genuine matches
+- **Quality Gate**: Minimum 3.5★ rating required
 
-#### Tier 2: Full Sponsored Mode (Aggressive Marketing)
+---
+
+#### **Tier 2: Full Sponsored (Aggressive Marketing)**
 - **Pricing**: $5,000-$20,000/month or 6% per conversion
-- **Benefit**: Top placement regardless of fit, AI actively promotes manufacturer's products
-- **Impact**: Significant bias - may not reflect optimal user choice
-- **Disclosure**: Mandatory "SPONSORED" badge with clear warnings
-- **Limitations**: Capped at maximum 30% of displayed results
+- **Algorithm**: 
+  ```
+  FinalScore = FinalScore * 1.5
+  ```
+- **Behavior**: Multiplicative boost regardless of user fit
+- **Impact**: Can override organic rankings, potentially showing less relevant products
+- **Safeguards**:
+  - Mandatory "SPONSORED" badge with disclaimer
+  - Capped at 30% of total results
+  - User feedback monitoring (if satisfaction < 3.0, suspend sponsorship)
 
-#### Tier 3: Ethical Featured (Premium Positioning)
+---
+
+#### **Tier 3: Ethical Featured (Premium Presentation)**
 - **Pricing**: $2,000-$5,000/month or 4% per conversion
-- **Benefit**: "Editor's Choice" badge, enhanced visual presentation, premium listing space
-- **Impact**: Zero algorithmic bias - ranking remains merit-based, only presentation is enhanced
-- **Quality Requirements**: Strict standards (4.0★ minimum, verified specs, strong warranty)
-- **Philosophy**: Similar to premium newspaper advertising - visibility without compromising editorial integrity
+- **Algorithm**: 
+  ```
+  FinalScore = OrganicScore (unchanged)
+  UI_Enhancement = true
+  ```
+- **Behavior**: Zero algorithmic manipulation; ranking remains purely merit-based
+- **Implementation**: Enhanced UI presentation only
+  - "Editor's Choice" badge
+  - Premium card design with larger images
+  - Expanded product information space
+- **Quality Gate**: Strict requirements
+  - Minimum 4.0★ rating
+  - <5% return rate
+  - Verified specifications
+  - Strong warranty/customer support
 
-#### Revenue Model Options
-- **Flat Subscription**: Predictable monthly fee
-- **Performance-Based**: Pay only for actual conversions
-- **Hybrid**: Low base fee + conversion commission
-- **Auction-Based**: Dynamic pricing based on competitive bidding
+---
 
-#### User Protection Mechanisms
-- Toggle to disable sponsored recommendations
-- "Compare without sponsorship" view
-- Transparency dashboard showing sponsored vs. organic results
-- Premium subscription option ($5-10/month) for guaranteed unbiased recommendations
+### Revenue Model Options
+1. **Flat Subscription**: Predictable monthly fee
+2. **Performance-Based**: Commission on conversions (2-6%)
+3. **Hybrid**: Base fee + conversion commission
+4. **Auction-Based**: Dynamic pricing via competitive bidding
 
-### Implementation Considerations
-- Clear disclosure should be provided to users regarding which operational mode is active
-- Ethical guidelines should govern the use of manufacturer-friendly mode
-- Transparency in sponsored recommendations is essential for maintaining user trust
+---
+
+## Technical Implementation Requirements
+
+### Database Schema Extensions
+
+**New Entity: `UserAction`**
+```java
+- userId: Long
+- actionType: Enum (CLICK, DWELL, SHARE, ADD_TO_CART, etc.)
+- productId: Long
+- weight: Double
+- timestamp: LocalDateTime
+- metadata: JSON (e.g., dwell_duration_seconds, scroll_depth)
+```
+
+**New Entity: `ProductScore`**
+```java
+- productId: Long
+- organicScore: Double
+- sponsorshipTier: Enum (NONE, TIER1, TIER2, TIER3)
+- finalScore: Double
+- lastUpdated: LocalDateTime
+```
+
+**Extend `Review` Entity**:
+```java
+- videoUrl: String
+- videoWatchTime: Integer (seconds)
+- isVideoQualified: Boolean
+```
+
+---
+
+### New Services Required
+
+1. **`WeightedScoringService`**: Calculates organic scores from interaction data
+2. **`UserActionService`**: Logs and retrieves user behavior sequences
+3. **`SponsorshipEngine`**: Applies tier-based boosting algorithms
+4. **`VideoQualityService`**: Validates video review engagement metrics
+
+---
+
+## Ethical Considerations & User Trust
+
+### Transparency Mechanisms
+- **Mode Indicator**: Clear badge showing "Neutral" vs "Sponsored" recommendations
+- **Score Breakdown**: "Why this ranking?" button reveals scoring components
+- **Comparison View**: Toggle to see organic rankings without sponsorship
+- **Feedback Loop**: "Was this helpful?" tracking per recommendation mode
+
+### User Protection
+- **Performance Monitoring**: If sponsored mode user satisfaction drops below 3.0/5.0, trigger review
+- **Percentage Caps**: Maximum 30% sponsored results in any listing
+- **Opt-Out Option**: Users can disable all sponsored recommendations
+- **Premium Subscription**: $5-10/month for guaranteed neutral recommendations
+
+### Quality Assurance
+- Third-party audits of recommendation fairness
+- Regular A/B testing comparing mode effectiveness
+- Transparent reporting of sponsored vs. organic conversion rates
+
+---
+
+## Expected Business Impact
+
+### Revenue Projections (50 Product Categories)
+- **Tier 1**: 150 manufacturers × $1,000/month = $150,000/month
+- **Tier 2**: 30 manufacturers × $10,000/month = $300,000/month  
+- **Tier 3**: 50 manufacturers × $3,000/month = $150,000/month
+- **Performance Commissions**: +20% additional revenue
+- **Total Annual Revenue**: ~$8.6 million
+
+### User Retention Strategy
+- Tier 3 and user-friendly mode maintain trust
+- Transparent labeling reduces manipulation perception
+- Premium user option provides revenue diversification
+- Quality gates ensure sponsored products still meet minimum standards
