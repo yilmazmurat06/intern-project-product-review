@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 // Tünel URL'i (Firewall engelini aşmak için)
 // Bu URL geçicidir. Eğer çalışmazsa, terminalde "npx localtunnel --port 8080"
 // komutunu çalıştırıp yeni verilen URL'i buraya yapıştırmalısınız.
-const TUNNEL_URL = 'https://real-emus-swim.loca.lt';
+const TUNNEL_URL = 'https://bitter-icons-spend.loca.lt';
 
 const getBaseUrl = () => {
   return `${TUNNEL_URL}/api`;
