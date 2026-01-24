@@ -26,8 +26,9 @@ const AddReviewScreen = ({ route, navigation }) => {
         { text: 'OK', onPress: () => navigation.goBack() }
       ]);
     } catch (error) {
-      console.error(error);
-      Alert.alert('Error', 'Failed to submit review');
+      console.error('Review submission error:', error);
+      const errorMessage = error.message || 'Failed to submit review';
+      Alert.alert('Error', errorMessage);
     } finally {
       setSubmitting(false);
     }

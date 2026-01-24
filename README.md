@@ -14,7 +14,7 @@ An Excalidraw diagram explaining the overall system design and architecture:
 
 ### 📲 Build Artifacts
 Download the generated mobile application builds:  
-🔗 [Download APK (Android) / IPA (iOS)](https://drive.google.com/your-drive-link-here)
+🔗 [Download APK (Android) / IPA (iOS)](https://drive.google.com/drive/u/0/folders/1-Wzpqp_hv46e9z3appw9J0Uu-v91PY2z)
 
 ### 🌐 Web Access
 Test the application directly in your web browser:  
