@@ -47,7 +47,7 @@ const getBaseUrl = () => {
     backendHost = 'your-production-server.com';
   }
 
-  const baseUrl = `https://${backendHost}/api`;
+  const baseUrl = `http://${backendHost}:${BACKEND_PORT}/api`;
   return baseUrl;
 };
 
